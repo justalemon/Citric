@@ -17,3 +17,17 @@ function banPlayer(player: number, reason: string, expires: number) {
         console.error("There is no resource running for admin management!");
     }
 }
+
+function registerEvents() {
+    for (const event of serverEvents) {
+        on(event, () => {
+            banPlayer(source, "Lua Injector", 0);
+        });
+
+        if (debug) {
+            console.log("Registered event " + event)
+        }
+    }
+}
+
+setImmediate(registerEvents);
