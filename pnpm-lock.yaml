@@ -1,0 +1,39 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  '@citizenfx/client':
+    specifier: ^2.0.6643-1
+    version: 2.0.6643-1
+  '@citizenfx/server':
+    specifier: ^2.0.6643-1
+    version: 2.0.6643-1
+  '@types/node':
+    specifier: ^20.5.0
+    version: 20.5.0
+  typescript:
+    specifier: ^5.1.6
+    version: 5.1.6
+
+packages:
+
+  /@citizenfx/client@2.0.6643-1:
+    resolution: {integrity: sha512-5X1WlzkpalmQzj4enxzgiFVaVM2kqT5RcPn+t7cTOWTSB67rmv/70AE1iV7nDshnnQ+y0R/YXgj6/Pi1JxiVDQ==}
+    dev: false
+
+  /@citizenfx/server@2.0.6643-1:
+    resolution: {integrity: sha512-RhUqn5dGF9OZJ2+IKOfx+YJqJ40Cbig9uKxHqsOw7Uh4lezUU8KSdv4ZkKJih3SWvqNRf+G+SJdxjdXi6hCbiA==}
+    dev: false
+
+  /@types/node@20.5.0:
+    resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
+    dev: false
+
+  /typescript@5.1.6:
+    resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: false

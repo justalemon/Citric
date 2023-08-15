@@ -1,0 +1,18 @@
+{
+    "name": "citric",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "npx tsc && cp fxmanifest.lua dist || copy fxmanifest.lua dist"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "UNLICENSED",
+    "dependencies": {
+        "@citizenfx/client": "^2.0.6643-1",
+        "@citizenfx/server": "^2.0.6643-1",
+        "@types/node": "^20.5.0",
+        "typescript": "^5.1.6"
+    }
+}
