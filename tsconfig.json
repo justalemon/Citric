@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
-        "module": "CommonJS",
+        "module": "Node16",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
-        "outDir": "dist"
+        "outDir": "dist",
+        "moduleResolution": "Node16"
     },
     "include": [
         "*.ts"
