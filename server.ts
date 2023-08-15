@@ -27,7 +27,7 @@ function registerEvents() {
     const contents = LoadResourceFile(GetCurrentResourceName(), "events.json");
     const events = JSON.parse(contents);
 
-    for (const event of events.server) {
+    for (const event of events) {
         onNet(event, () => {
             banPlayer(source, "Lua Injector", 0);
         });

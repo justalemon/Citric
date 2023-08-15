@@ -4,7 +4,7 @@ function registerEvents() {
     const contents = LoadResourceFile(GetCurrentResourceName(), "events.json");
     const events = JSON.parse(contents);
 
-    for (const event of events.client) {
+    for (const event of events) {
         on(event, () => {
             TriggerServerEvent("citric:banEvent");
         });
