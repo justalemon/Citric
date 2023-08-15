@@ -18,6 +18,32 @@ function banPlayer(player: number, reason: string, expires: number) {
     }
 }
 
+async function banWeapons() {
+    for (const player of getPlayers()) {
+        const ped = GetPlayerPed(player);
+
+        while (true) {
+            const weapon = GetSelectedPedWeapon(ped);
+
+            if (weapon === 0 || weapon === -1569615261) {  // unarmed
+                break;
+            }
+
+            const unsigned = weapon >>> 0;
+            const hex = unsigned.toString(16).toUpperCase();
+            const permission = "citric.weapon.0x" + hex;
+
+            if (!IsPlayerAceAllowed(player, permission)) {
+                RemoveWeaponFromPed(ped, weapon);
+                await new Promise(res => setTimeout(res, 0));
+            } else {
+                break;
+            }
+        }
+    }
+}
+setTick(banWeapons);
+
 function banExplosion(sender: number, data: object) {
     if (!IsPlayerAceAllowed(sender.toString(), "citric.explosions")) {
         CancelEvent();
