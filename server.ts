@@ -7,6 +7,7 @@ function kickPlayer(player: number, reason: string) {
         TriggerServerEvent("EasyAdmin:kickPlayer", player, reason);
     } else {
         console.error("There is no resource running for admin management!");
+        DropPlayer(player.toString(), reason);
     }
 }
 
@@ -15,6 +16,7 @@ function banPlayer(player: number, reason: string, expires: number) {
         TriggerServerEvent("EasyAdmin:addBan", player, reason, expires > 0 ? expires : null);
     } else {
         console.error("There is no resource running for admin management!");
+        DropPlayer(player.toString(), reason);
     }
 }
 
