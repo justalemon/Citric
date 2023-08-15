@@ -20,6 +20,7 @@ function banPlayer(player: number, reason: string, expires: number) {
 
 function banExplosion(sender: number, data: object) {
     if (!IsPlayerAceAllowed(sender.toString(), "citric.explosions")) {
+        CancelEvent();
         banPlayer(sender, "Explosion", 0);
     }
 }
