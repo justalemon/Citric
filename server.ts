@@ -18,6 +18,11 @@ function banPlayer(player: number, reason: string, expires: number) {
     }
 }
 
+function banEvent() {
+    banPlayer(source, "Lua Injector", 0);
+}
+onNet("citric:banEvent", banEvent);
+
 function registerEvents() {
     const contents = LoadResourceFile(GetCurrentResourceName(), "events.json");
     const events = JSON.parse(contents);
@@ -32,5 +37,4 @@ function registerEvents() {
         }
     }
 }
-
 setImmediate(registerEvents);
