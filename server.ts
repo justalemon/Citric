@@ -1,6 +1,6 @@
 import "@citizenfx/server";
 
-function kickPlayer(player: string, reason: string) {
+function kickPlayer(player: number, reason: string) {
     if (GetResourceState("easyadmin") == "started") {
         TriggerServerEvent("EasyAdmin:kickPlayer", player, reason);
     } else {
@@ -8,7 +8,7 @@ function kickPlayer(player: string, reason: string) {
     }
 }
 
-function banPlayer(player: string, reason: string, expires: number) {
+function banPlayer(player: number, reason: string, expires: number) {
     if (GetResourceState("easyadmin") == "started") {
         TriggerServerEvent("EasyAdmin:addBan", player, reason, expires);
     } else {
