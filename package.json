@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "build": "npx tsc && pnpm run manifest",
-        "manifest": "cp fxmanifest.lua dist || copy fxmanifest.lua dist"
+        "manifest": "cp fxmanifest.lua dist || copy fxmanifest.lua dist",
+        "watch": "npx nodemon --ext \"ts,lua\" --exec \"pnpm run build\" --ignore \"dist/\""
     },
     "keywords": [],
     "author": "",
@@ -14,6 +15,7 @@
         "@citizenfx/client": "^2.0.6643-1",
         "@citizenfx/server": "^2.0.6643-1",
         "@types/node": "^20.5.0",
+        "nodemon": "^3.0.1",
         "typescript": "^5.1.6"
     }
 }
