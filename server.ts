@@ -23,7 +23,7 @@ function registerEvents() {
     const events = JSON.parse(contents);
 
     for (const event of events.server) {
-        on(event, () => {
+        onNet(event, () => {
             banPlayer(source, "Lua Injector", 0);
         });
 
