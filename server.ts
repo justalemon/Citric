@@ -1,5 +1,17 @@
 const debug = GetConvarInt("citric_debug", 0) !== 0;
 
+type ExplosionData = {
+    ownerNetId: number;
+    explosionType: number;
+    damageScale: number;
+    posX: number;
+    posY: number;
+    posZ: number;
+    cameraShake: number;
+    isAudible: boolean;
+    isInvisible: boolean;
+}
+
 function kickPlayer(player: number, reason: string) {
     if (GetResourceState("easyadmin") == "started") {
         TriggerServerEvent("EasyAdmin:kickPlayer", player, reason);
@@ -44,8 +56,10 @@ async function banWeapons() {
 }
 setTick(banWeapons);
 
-function banExplosion(sender: number, data: object) {
-    if (!IsPlayerAceAllowed(sender.toString(), "citric.explosions")) {
+function banExplosion(sender: number, data: ExplosionData) {
+    const permission = "citric.explosion." + data.explosionType.toString();
+    
+    if (!IsPlayerAceAllowed(sender.toString(), permission)) {
         CancelEvent();
         banPlayer(sender, "Explosion", 0);
     }
