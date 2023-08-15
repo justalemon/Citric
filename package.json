@@ -7,7 +7,7 @@
         "build": "npx tsc && pnpm run manifest && pnpm run events",
         "manifest": "cp fxmanifest.lua dist || copy fxmanifest.lua dist",
         "events": "cp events.json dist || copy events.json dist",
-        "watch": "npx nodemon --ext \"ts,lua,json\" --exec \"pnpm run build\" --ignore \"dist/\""
+        "watch": "npx nodemon --ext \"ts,lua,json\" --exec \"pnpm run build\" --ignore \"dist/\" --delay 2.5"
     },
     "keywords": [],
     "author": "",
