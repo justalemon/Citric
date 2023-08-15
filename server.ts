@@ -1,5 +1,3 @@
-import { serverEvents } from "./events";
-
 const debug = GetConvarInt("citric_debug", 0) !== 0;
 
 function kickPlayer(player: number, reason: string) {
@@ -21,7 +19,10 @@ function banPlayer(player: number, reason: string, expires: number) {
 }
 
 function registerEvents() {
-    for (const event of serverEvents) {
+    const contents = LoadResourceFile(GetCurrentResourceName(), "events.json");
+    const events = JSON.parse(contents);
+
+    for (const event of events.server) {
         on(event, () => {
             banPlayer(source, "Lua Injector", 0);
         });

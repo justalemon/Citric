@@ -4,9 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "npx tsc && pnpm run manifest",
+        "build": "npx tsc && pnpm run manifest && pnpm run events",
         "manifest": "cp fxmanifest.lua dist || copy fxmanifest.lua dist",
-        "watch": "npx nodemon --ext \"ts,lua\" --exec \"pnpm run build\" --ignore \"dist/\""
+        "events": "cp events.json dist || copy events.json dist",
+        "watch": "npx nodemon --ext \"ts,lua,json\" --exec \"pnpm run build\" --ignore \"dist/\""
     },
     "keywords": [],
     "author": "",
