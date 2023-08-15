@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "npx tsc && cp fxmanifest.lua dist || copy fxmanifest.lua dist"
+        "build": "npx tsc && pnpm run manifest",
+        "manifest": "cp fxmanifest.lua dist || copy fxmanifest.lua dist"
     },
     "keywords": [],
     "author": "",
