@@ -1,4 +1,4 @@
-import "@citizenfx/server";
+import { serverEvents } from "./events";
 
 function kickPlayer(player: number, reason: string) {
     if (GetResourceState("easyadmin") == "started") {
