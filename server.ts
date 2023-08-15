@@ -1,5 +1,7 @@
 import { serverEvents } from "./events";
 
+const debug = GetConvarInt("citric_debug", 0) !== 0;
+
 function kickPlayer(player: number, reason: string) {
     if (GetResourceState("easyadmin") == "started") {
         TriggerServerEvent("EasyAdmin:kickPlayer", player, reason);
