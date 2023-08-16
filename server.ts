@@ -129,7 +129,7 @@ function banEntities(entity: number) {
             permission = "citric.ped.0x" + hex;
             break;
         case 2:
-            permission = "citric.vehicle.0x" + hex;
+            permission = "citric.vehicle." + GetVehicleType(entity) + ".0x" + hex;
             break;
         case 3:
             permission = "citric.prop.0x" + hex;
