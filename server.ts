@@ -1,4 +1,19 @@
 const debug = GetConvarInt("citric_debug", 0) !== 0;
+const invites = new RegExp("discord.gg/[A-Za-z0-9]+", "i");
+
+type Message = {
+    mode: string,
+    color: [number, number, number],
+    args: Array<string>,
+    multiline: boolean
+}
+
+type MessageHook = {
+    updateMessage(data: object): null,
+    cancel(): null,
+    setSeObject(obj: object): null,
+    setRouting(target: any): null
+}
 
 type ExplosionData = {
     ownerNetId: number;
@@ -29,6 +44,22 @@ function banPlayer(player: number, reason: string, expires: number) {
         DropPlayer(player.toString(), reason);
     }
 }
+
+function banChatMessages(player: number, message: Message, hookRef: MessageHook) {
+    if (GetConvarInt("citric_blockinvites", 1) !== 0 && message.args.some(x => invites.test(x))) {
+        hookRef.cancel();
+        return;
+    }
+}
+async function registerChatHook() {
+    if (GetResourceState("chat") !== "started") {
+        console.error("Chat is not running, skipping hook registration");
+        return;
+    }
+
+    exports.chat.registerMessageHook(banChatMessages);
+}
+setImmediate(registerChatHook);
 
 async function banWeapons() {
     for (const player of getPlayers()) {
