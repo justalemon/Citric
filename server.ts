@@ -1,5 +1,6 @@
 const debug = GetConvarInt("citric_debug", 0) !== 0;
 const invites = new RegExp("discord.gg/[A-Za-z0-9]+", "i");
+const messages: string[] = [];
 
 type Message = {
     mode: string,
@@ -50,11 +51,27 @@ function banChatMessages(player: number, message: Message, hookRef: MessageHook)
         hookRef.cancel();
         return;
     }
+
+    if (GetConvarInt("citric_blockmessages", 1) !== 0) {
+        for (const messageContent of messages) {
+            if (message.args.some(x => x.toLowerCase().indexOf(messageContent) !== -1)) {
+                hookRef.cancel();
+                return;
+            }
+        }
+    }
 }
 async function registerChatHook() {
     if (GetResourceState("chat") !== "started") {
         console.error("Chat is not running, skipping hook registration");
         return;
+    }
+    
+    const contents = LoadResourceFile(GetCurrentResourceName(), "messages.json");
+    const newMessages: string[] = JSON.parse(contents);
+
+    for (const newMessage of newMessages) {
+        messages.push(newMessage.toLowerCase());
     }
 
     exports.chat.registerMessageHook(banChatMessages);
