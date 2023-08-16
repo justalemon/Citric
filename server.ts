@@ -47,6 +47,10 @@ function banPlayer(player: number, reason: string, expires: number) {
 }
 
 function banChatMessages(player: number, message: Message, hookRef: MessageHook) {
+    if (player <= 0) {
+        return;
+    }
+
     if (GetConvarInt("citric_blockinvites", 1) !== 0 && message.args.some(x => invites.test(x))) {
         hookRef.cancel();
         return;
