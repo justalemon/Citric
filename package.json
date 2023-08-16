@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "npx tsc && pnpm run manifest && pnpm run events",
+        "build": "npx tsc && pnpm run manifest && pnpm run data",
         "manifest": "cp fxmanifest.lua dist || copy fxmanifest.lua dist",
-        "events": "cp events.json dist || copy events.json dist",
+        "data": "cp $(find *.json -maxdepth 1 -not -type d ! -name \"tsconfig.json\" ! -name \"package.json\") dist || xcopy *.json dist /EXCLUDE:tsconfig.json+package.json /Y",
         "watch": "npx nodemon --ext \"ts,lua,json\" --exec \"pnpm run build\" --ignore \"dist/\" --delay 2.5"
     },
     "keywords": [],
