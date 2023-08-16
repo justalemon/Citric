@@ -118,6 +118,33 @@ function banExplosion(sender: number, data: ExplosionData) {
 }
 on("explosionEvent", banExplosion);
 
+function banEntities(entity: number) {
+    const model = GetEntityModel(entity);
+    const unsigned = model >>> 0;
+    const hex = unsigned.toString(16).toUpperCase();
+    let permission = "";
+
+    switch (GetEntityType(entity)) {
+        case 1:
+            permission = "citric.ped.0x" + hex;
+            break;
+        case 2:
+            permission = "citric.vehicle.0x" + hex;
+            break;
+        case 3:
+            permission = "citric.prop.0x" + hex;
+            break;
+        default:
+            permission = "citric.entity.0x" + hex;
+            break;
+    }
+
+    if (!IsPlayerAceAllowed(source.toString(), permission)) {
+        CancelEvent();
+    }
+}
+on("entityCreating", banEntities)
+
 function banEvent() {
     banPlayer(source, "Lua Injector", 0);
 }
