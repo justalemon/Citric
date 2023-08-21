@@ -66,11 +66,6 @@ function banChatMessages(player: number, message: Message, hookRef: MessageHook)
     }
 }
 async function registerChatHook() {
-    if (GetResourceState("chat") !== "started") {
-        console.error("Chat is not running, skipping hook registration");
-        return;
-    }
-    
     const contents = LoadResourceFile(GetCurrentResourceName(), "messages.json");
     const newMessages: string[] = JSON.parse(contents);
 
@@ -78,9 +73,21 @@ async function registerChatHook() {
         messages.push(newMessage.toLowerCase());
     }
 
-    exports.chat.registerMessageHook(banChatMessages);
+    if (GetResourceState("chat") === "started") {
+        console.log("Registering chat hook");
+        exports.chat.registerMessageHook(banChatMessages);
+    } else {
+        console.error("Chat is not running, skipping hook registration");
+    }
+}
+async function registerHook(name: string) {
+    if (name === "chat") {
+        console.log("Registering chat hook");
+        exports.chat.registerMessageHook(banChatMessages);
+    }
 }
 setImmediate(registerChatHook);
+on("onResourceStart", registerHook)
 
 async function banWeapons() {
     for (const player of getPlayers()) {
