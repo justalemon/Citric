@@ -126,10 +126,11 @@ function banExplosion(sender: number, data: ExplosionData) {
 on("explosionEvent", banExplosion);
 
 function banEntities(entity: number) {
+    const owner = NetworkGetFirstEntityOwner(entity);
     // https://alloc8or.re/gta5/doc/enums/ePopulationType.txt
     const populationType = GetEntityPopulationType(entity);
 
-    if (populationType === 2 || populationType === 3 || populationType === 4 || populationType === 5) {
+    if (owner === 0 || populationType === 2 || populationType === 3 || populationType === 4 || populationType === 5) {
         return;
     }
 
@@ -153,7 +154,7 @@ function banEntities(entity: number) {
             break;
     }
 
-    if (!IsPlayerAceAllowed(source.toString(), permission)) {
+    if (!IsPlayerAceAllowed(owner.toString(), permission)) {
         CancelEvent();
     }
 }
