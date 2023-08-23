@@ -126,6 +126,13 @@ function banExplosion(sender: number, data: ExplosionData) {
 on("explosionEvent", banExplosion);
 
 function banEntities(entity: number) {
+    // https://alloc8or.re/gta5/doc/enums/ePopulationType.txt
+    const populationType = GetEntityPopulationType(entity);
+
+    if (populationType === 2 || populationType === 3 || populationType === 4 || populationType === 5) {
+        return;
+    }
+
     const model = GetEntityModel(entity);
     const unsigned = model >>> 0;
     const hex = unsigned.toString(16).toUpperCase();
