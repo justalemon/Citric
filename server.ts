@@ -155,6 +155,7 @@ function banEntities(entity: number) {
     }
 
     if (!IsPlayerAceAllowed(owner.toString(), permission)) {
+        console.log(`Preventing Player ${owner} from creating entity ${entity} (${permission}, ${populationType})`);
         CancelEvent();
     }
 }
