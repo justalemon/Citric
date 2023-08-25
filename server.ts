@@ -65,29 +65,12 @@ function banChatMessages(player: number, message: Message, hookRef: MessageHook)
         }
     }
 }
-async function registerChatHook() {
-    const contents = LoadResourceFile(GetCurrentResourceName(), "messages.json");
-    const newMessages: string[] = JSON.parse(contents);
-
-    for (const newMessage of newMessages) {
-        messages.push(newMessage.toLowerCase());
-    }
-
-    if (GetResourceState("chat") === "started") {
-        console.log("Registering chat hook");
-        exports.chat.registerMessageHook(banChatMessages);
-    } else {
-        console.error("Chat is not running, skipping hook registration");
-    }
-}
-async function registerHook(name: string) {
+async function registerHookOnStart(name: string) {
     if (name === "chat") {
-        console.log("Registering chat hook");
+        console.log("Chat hook has been registered (chat has been started)");
         exports.chat.registerMessageHook(banChatMessages);
     }
 }
-setImmediate(registerChatHook);
-on("onResourceStart", registerHook)
 
 async function banWeapons() {
     for (const player of getPlayers()) {
@@ -113,7 +96,6 @@ async function banWeapons() {
         }
     }
 }
-setTick(banWeapons);
 
 function banExplosion(sender: number, data: ExplosionData) {
     const permission = "citric.explosion." + data.explosionType.toString();
@@ -123,7 +105,6 @@ function banExplosion(sender: number, data: ExplosionData) {
         banPlayer(sender, "Explosion", 0);
     }
 }
-on("explosionEvent", banExplosion);
 
 function banEntities(entity: number) {
     const owner = NetworkGetFirstEntityOwner(entity);
@@ -159,16 +140,34 @@ function banEntities(entity: number) {
         CancelEvent();
     }
 }
-on("entityCreating", banEntities)
 
 function banEvent() {
     banPlayer(source, "Lua Injector", 0);
 }
-onNet("citric:banEvent", banEvent);
 
-function registerEvents() {
-    const contents = LoadResourceFile(GetCurrentResourceName(), "events.json");
-    const events = JSON.parse(contents);
+function init() {
+    console.log("Loading banned message list...");
+
+    const messageContents = LoadResourceFile(GetCurrentResourceName(), "messages.json");
+    const newMessages: string[] = JSON.parse(messageContents);
+
+    for (const newMessage of newMessages) {
+        messages.push(newMessage.toLowerCase());
+    }
+
+    console.log(`Loaded ${messages.length} messages!`);
+
+    if (GetResourceState("chat") === "started") {
+        exports.chat.registerMessageHook(banChatMessages);
+        console.log("Chat hook has been registered (chat is running)");
+    } else {
+        console.error("Chat is not running, skipping hook registration");
+    }
+
+    console.log("Registering dangerous events...");
+
+    const eventContents = LoadResourceFile(GetCurrentResourceName(), "events.json");
+    const events = JSON.parse(eventContents);
 
     for (const event of events) {
         onNet(event, () => {
@@ -179,5 +178,14 @@ function registerEvents() {
             console.log("Registered event " + event)
         }
     }
+
+    console.log(`Registered ${events.length} dangerous events!`);
+
+    setTick(banWeapons);
+
+    on("onResourceStart", registerHookOnStart);
+    on("explosionEvent", banExplosion);
+    on("entityCreating", banEntities);
+    onNet("citric:banEvent", banEvent);
 }
-setImmediate(registerEvents);
+setImmediate(init);
