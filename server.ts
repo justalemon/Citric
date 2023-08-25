@@ -29,7 +29,7 @@ type ExplosionData = {
 }
 
 function kickPlayer(player: number, reason: string) {
-    if (GetResourceState("easyadmin") == "started") {
+    if (GetResourceState("EasyAdmin") == "started") {
         TriggerServerEvent("EasyAdmin:kickPlayer", player, reason);
     } else {
         console.error("There is no resource running for admin management!");
@@ -38,7 +38,7 @@ function kickPlayer(player: number, reason: string) {
 }
 
 function banPlayer(player: number, reason: string, expires: number) {
-    if (GetResourceState("easyadmin") == "started") {
+    if (GetResourceState("EasyAdmin") == "started") {
         TriggerServerEvent("EasyAdmin:addBan", player, reason, expires > 0 ? expires : null);
     } else {
         console.error("There is no resource running for admin management!");
