@@ -97,12 +97,12 @@ async function banWeapons() {
     }
 }
 
-function banExplosion(sender: number, data: ExplosionData) {
+function banExplosion(sender: string, data: ExplosionData) {
     const permission = "citric.explosion." + data.explosionType.toString();
     
     if (!IsPlayerAceAllowed(sender.toString(), permission)) {
         CancelEvent();
-        banPlayer(sender, "Explosion", 0);
+        banPlayer(parseInt(sender), "Explosion", 0);
     }
 }
 
