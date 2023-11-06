@@ -4,11 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "npx tsc && pnpm run manifest && pnpm run data && pnpm run nui",
-        "manifest": "cp fxmanifest.lua dist || copy fxmanifest.lua dist",
-        "nui": "cp *.html dist || copy *.html dist || exit 0",
-        "data": "cp $(find *.json -maxdepth 1 -not -type d ! -name \"tsconfig.json\" ! -name \"package.json\") dist || robocopy . dist *.json /xf tsconfig.json /xf package.json",
-        "watch": "npx nodemon --ext \"ts,lua,json\" --exec \"pnpm run build\" --ignore \"dist/\" --delay 2.5"
+        "build": "webpack",
+        "watch": "webpack --watch"
     },
     "keywords": [],
     "author": "",
@@ -17,7 +14,10 @@
         "@citizenfx/client": "2.0.6643-1",
         "@citizenfx/server": "2.0.6643-1",
         "@types/node": "20.5.0",
-        "nodemon": "3.0.1",
-        "typescript": "5.1.6"
-    }
+        "copy-webpack-plugin": "^11.0.0",
+        "ts-loader": "^9.5.0",
+        "webpack": "^5.89.0",
+        "webpack-cli": "^5.1.4"
+    },
+    "browser": false
 }
