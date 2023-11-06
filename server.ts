@@ -68,7 +68,7 @@ function banChatMessages(player: number, message: Message, hookRef: MessageHook)
 async function registerHookOnStart(name: string) {
     if (name === "chat") {
         console.log("Chat hook has been registered (chat has been started)");
-        exports.chat.registerMessageHook(banChatMessages);
+        globalThis.exports.chat.registerMessageHook(banChatMessages);
     }
 }
 
@@ -158,7 +158,7 @@ function init() {
     console.log(`Loaded ${messages.length} messages!`);
 
     if (GetResourceState("chat") === "started") {
-        exports.chat.registerMessageHook(banChatMessages);
+        globalThis.exports.chat.registerMessageHook(banChatMessages);
         console.log("Chat hook has been registered (chat is running)");
     } else {
         console.error("Chat is not running, skipping hook registration");
